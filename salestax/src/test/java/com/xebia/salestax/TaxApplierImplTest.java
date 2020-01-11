@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Before;
@@ -32,9 +33,9 @@ public class TaxApplierImplTest {
 
 	@Test
 	public void applyTaxAndCalculatePriceTest1() {
-		Basket basket = new Basket(Arrays.asList(new Product(1, "book", 12.47, false, Category.TAX_EXEMPTED),
+		Basket basket = new Basket(new HashSet<>(Arrays.asList(new Product(1, "book", 12.47, false, Category.TAX_EXEMPTED),
 				new Product(1, "music CD", 14.99, false, Category.NON_TAX_EXEMPTED),
-				new Product(1, "chocolate bar", 0.85, false, Category.TAX_EXEMPTED)));
+				new Product(1, "chocolate bar", 0.85, false, Category.TAX_EXEMPTED))));
 		taxApplier.applyTaxesAndCalculatePrice(basket);
 		Mockito.verify(taxCalculator, times(3)).calculateTax(Mockito.any());
 	}
@@ -42,8 +43,8 @@ public class TaxApplierImplTest {
 	@Test
 	public void applyTaxAndCalculatePriceTest2() {
 		Basket basket = new Basket(
-				Arrays.asList(new Product(1, "imported box of chocolates", 10.00, true, Category.TAX_EXEMPTED),
-						new Product(1, "imported bottle of perfume", 47.50, true, Category.NON_TAX_EXEMPTED)));
+				new HashSet<>(Arrays.asList(new Product(1, "imported box of chocolates", 10.00, true, Category.TAX_EXEMPTED),
+						new Product(1, "imported bottle of perfume", 47.50, true, Category.NON_TAX_EXEMPTED))));
 		taxApplier.applyTaxesAndCalculatePrice(basket);
 		Mockito.verify(taxCalculator, times(2)).calculateTax(Mockito.any());
 	}
@@ -51,10 +52,10 @@ public class TaxApplierImplTest {
 	@Test
 	public void applyTaxAndCalculatePriceTest3() {
 		Basket basket = new Basket(
-				Arrays.asList(new Product(1, "imported bottle of perfume", 27.99, true, Category.NON_TAX_EXEMPTED),
+				new HashSet<>(Arrays.asList(new Product(1, "imported bottle of perfume", 27.99, true, Category.NON_TAX_EXEMPTED),
 						new Product(1, "bottle of perfume", 18.99, false, Category.NON_TAX_EXEMPTED),
 						new Product(1, "packet of headache pills", 9.75, false, Category.TAX_EXEMPTED),
-						new Product(1, "box of imported chocolates", 11.25, true, Category.TAX_EXEMPTED)));
+						new Product(1, "box of imported chocolates", 11.25, true, Category.TAX_EXEMPTED))));
 		taxApplier.applyTaxesAndCalculatePrice(basket);
 		Mockito.verify(taxCalculator, times(4)).calculateTax(Mockito.any());
 	}
@@ -64,7 +65,7 @@ public class TaxApplierImplTest {
 		List<Product> products=Arrays.asList(new Product(1, "book", 12.49, false, Category.TAX_EXEMPTED),
 				new Product(1, "music CD", 14.99, false, Category.NON_TAX_EXEMPTED),
 				new Product(1, "chocolate bar", 0.85, false, Category.TAX_EXEMPTED));
-		Basket basket = new Basket(products);
+		Basket basket = new Basket(new HashSet<>(products));
 		
 		when(taxCalculator.calculateTax(Matchers.refEq(products.get(0)))).thenReturn(new Double(0.0));
 		when(taxCalculator.calculateTax(Matchers.refEq(products.get(1)))).thenReturn(new Double(1.49));
@@ -81,7 +82,7 @@ public class TaxApplierImplTest {
 	public void applyTaxAndCalculatePriceTest5() {
 		List<Product> products=Arrays.asList(new Product(1, "imported box of chocolates", 10.00, true, Category.TAX_EXEMPTED),
 				new Product(1, "imported bottle of perfume", 47.50, true, Category.NON_TAX_EXEMPTED));
-		Basket basket = new Basket(products);
+		Basket basket = new Basket(new HashSet<>(products));
 		taxApplier.applyTaxesAndCalculatePrice(basket);
 		
 		when(taxCalculator.calculateTax(Matchers.refEq(products.get(0)))).thenReturn(new Double(0.5));
@@ -100,7 +101,7 @@ public class TaxApplierImplTest {
 				new Product(1, "bottle of perfume", 18.99, false, Category.NON_TAX_EXEMPTED),
 				new Product(1, "packet of headache pills", 9.75, false, Category.TAX_EXEMPTED),
 				new Product(1, "box of imported chocolates", 11.25, true, Category.TAX_EXEMPTED));
-		Basket basket = new Basket(products);
+		Basket basket = new Basket(new HashSet<>(products));
 		taxApplier.applyTaxesAndCalculatePrice(basket);
 		
 		when(taxCalculator.calculateTax(Matchers.refEq(products.get(0)))).thenReturn(new Double(4.198499999999999));
@@ -117,8 +118,8 @@ public class TaxApplierImplTest {
 	
 	@Test
 	public void applyTaxAndCalculatePriceTest7() {
-		Basket basket = new Basket(Arrays.asList(new Product(1, "book", 12.49, false, Category.TAX_EXEMPTED),
-				new Product(1, "chocolate bar", 0.85, false, Category.TAX_EXEMPTED)));
+		Basket basket = new Basket(new HashSet<>(Arrays.asList(new Product(1, "book", 12.49, false, Category.TAX_EXEMPTED),
+				new Product(1, "chocolate bar", 0.85, false, Category.TAX_EXEMPTED))));
 		taxApplier.applyTaxesAndCalculatePrice(basket);
 		
 		when(taxCalculator.calculateTax(Mockito.isA(Product.class))).thenReturn(new Double(0.0));
