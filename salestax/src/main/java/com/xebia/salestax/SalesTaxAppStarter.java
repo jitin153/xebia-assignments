@@ -1,8 +1,8 @@
 package com.xebia.salestax;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import com.xebia.salestax.exception.SalesTaxException;
@@ -19,7 +19,7 @@ import com.xebia.salestax.util.Constants;
 public class SalesTaxAppStarter {
 
 	public static void main(String[] args) {
-		List<Product> products;
+		Set<Product> products;
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("For how many baskets you want to calculate tax? ");
 			int numberOfBasket = Integer.parseInt(scanner.nextLine());
@@ -28,7 +28,7 @@ public class SalesTaxAppStarter {
 				int numberOfProductsToBePurchased = Integer.parseInt(scanner.nextLine());
 				System.out.println(
 						"Please provide the detail of " + numberOfProductsToBePurchased + " product(s) line by line.");
-				products = new ArrayList<>();
+				products = new HashSet<>();
 				for (int index = 0; index < numberOfProductsToBePurchased; index++) {
 					String detail = scanner.nextLine();
 					products.add(createProductFromInput(detail));
