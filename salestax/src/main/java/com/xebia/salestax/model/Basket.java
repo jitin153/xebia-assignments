@@ -1,6 +1,6 @@
 package com.xebia.salestax.model;
 
-import java.util.List;
+import java.util.Set;
 
 import com.xebia.salestax.exception.SalesTaxException;
 
@@ -11,7 +11,7 @@ import com.xebia.salestax.exception.SalesTaxException;
  *
  */
 public class Basket {
-	private List<Product> products;
+	private Set<Product> products;
 	private Double salesTax;
 	private Double totalPrice;
 
@@ -19,15 +19,15 @@ public class Basket {
 
 	}
 
-	public Basket(List<Product> products) {
+	public Basket(Set<Product> products) {
 		this.products = products;
 	}
 
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 
